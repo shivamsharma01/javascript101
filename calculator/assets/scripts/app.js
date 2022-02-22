@@ -39,46 +39,51 @@ function writeToLog(
   logEntries.push(logEntry);
   console.log(logEntries);
 }
-/*
-    This function performs the add operation, updates currentResult and calls createAndWriteOutput
-*/
-function add() {
+
+function calculate(calculationType) {
   const enteredNumber = getUserNumberInput();
   const initialResult = currentResult;
-  currentResult += enteredNumber;
-  createAndWriteOutput("+", initialResult, enteredNumber);
-  writeToLog("ADD", initialResult, enteredNumber, currentResult);
+  let mathOperator;
+  if (calculationType === "ADD") {
+    mathOperator = "+";
+    currentResult += enteredNumber;
+  } else if (calculationType === "SUBTRACT") {
+    mathOperator = "-";
+    currentResult -= enteredNumber;
+  } else if (calculationType === "MULTIPLY") {
+    mathOperator = "*";
+    currentResult *= enteredNumber;
+  } else {
+    mathOperator = "/";
+    currentResult /= enteredNumber;
+  }
+  createAndWriteOutput(mathOperator, initialResult, enteredNumber);
+  writeToLog(calculationType, initialResult, enteredNumber, currentResult);
+}
+/*
+    This function performs the add operation, by passing the calculationType to calculateResult function
+*/
+function add() {
+  calculate('ADD');
 }
 
 /*
-    This function performs the subtract operation, updates currentResult and calls createAndWriteOutput
+    This function performs the subtract operation, by passing the calculationType to calculateResult function
 */
 function subtract() {
-  const enteredNumber = getUserNumberInput();
-  const initialResult = currentResult;
-  currentResult -= enteredNumber;
-  createAndWriteOutput("-", initialResult, enteredNumber);
-  writeToLog("SUBTRACT", initialResult, enteredNumber, currentResult);
+  calculate('SUBTRACT');
 }
 /*
-    This function performs the multiply operation, updates currentResult and calls createAndWriteOutput
+    This function performs the multiply operation, by passing the calculationType to calculateResult function
 */
 function multiply() {
-  const enteredNumber = getUserNumberInput();
-  const initialResult = currentResult;
-  currentResult *= enteredNumber;
-  createAndWriteOutput("*", initialResult, enteredNumber);
-  writeToLog("MULTIPLY", initialResult, enteredNumber, currentResult);
+  calculate('MULTIPLY');
 }
 /*
-    This function performs the divide operation, updates currentResult and calls createAndWriteOutput
+    This function performs the divide operation, by passing the calculationType to calculateResult function
 */
 function divide() {
-  const enteredNumber = getUserNumberInput();
-  const initialResult = currentResult;
-  currentResult /= enteredNumber;
-  createAndWriteOutput("/", initialResult, enteredNumber);
-  writeToLog("DIVIDE", initialResult, enteredNumber, currentResult);
+  calculate('DIVIDE');
 }
 
 addBtn.addEventListener("click", add);
